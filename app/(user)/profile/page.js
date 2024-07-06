@@ -1,14 +1,11 @@
-"use client"
+"use client";
 
 import React from "react";
-import useAuthRedirect from "../../../hooks/use-auth";
 
 const page = () => {
-  const user = useAuthRedirect();
-
   return (
-    <div>
-      <h1>profile page</h1>
+    <div className="w-full min-h-[70vh] flex items-center justify-center">
+      <h1 className="text-3xl font-semibold">User Profile</h1>
     </div>
   );
 };

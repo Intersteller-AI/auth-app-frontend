@@ -1,9 +1,8 @@
-import './css/style.css'
+import './globals.css'
 
 import { Inter, Architects_Daughter } from 'next/font/google'
 
 import Header from '../components/ui/header'
-import Banner from '../components/banner'
 import { Toaster } from "react-hot-toast"
 
 const inter = Inter({
@@ -29,11 +28,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${architects_daughter.variable} font-inter antialiased bg-gray-900 text-gray-200 tracking-tight`} suppressHydrationWarning>
+      <body className={`${inter.variable} ${architects_daughter.variable} font-inter antialiased`} suppressHydrationWarning>
         <div className="flex flex-col min-h-screen overflow-hidden">
           <Header />
           {children}
-          <Banner />
           <Toaster />
         </div>
       </body>
