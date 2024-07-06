@@ -1,37 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useForm } from "react-hook-form";
-import Cookies from "js-cookie";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 
-const signin = async ({ email, password }) => {
-  try {
-    const { data } = await axios.post(
-      `http://localhost:8000/api/users/signin`,
-      {
-        email,
-        password,
-      },
-      {
-        withCredentials: true,
-      }
-    );
-
-    return data;
-  } catch (error) {
-    throw error;
-  }
-};
 
 export default function SignIn() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const next = searchParams.get("next");
-  const user = Cookies.get("user");
   const [userForm, setUserForm] = useState({
     email: "",
     password: "",
@@ -39,24 +13,6 @@ export default function SignIn() {
 
   const handleSubmitDetails = async () => {
     try {
-      if (userForm.email && userForm.password) {
-        const data = await signin({
-          email: userForm.email,
-          password: userForm.password,
-        });
-
-        if (data) {
-          toast.success("sign in successful");
-          Cookies.set("user", JSON.stringify(data.user), {
-            expires: 1 / 24,
-          });
-          if (next) {
-            router.push(next);
-          } else {
-            router.push("/");
-          }
-        }
-      }
     } catch (error) {
       if(error?.response){
         toast.error(error.response.data.message);
@@ -64,12 +20,6 @@ export default function SignIn() {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    if (user) {
-      router.push("/");
-    }
-  }, [user, router]);
 
   return (
     <section className="relative">
@@ -79,7 +29,6 @@ export default function SignIn() {
           <div className="max-w-3xl mx-auto text-center pb-12">
             <h1 className="h1">Welcome back</h1>
           </div>
-          {/* Form */}
           <div className="max-w-sm mx-auto">
             <div className="flex flex-wrap -mx-3 mb-4">
               <div className="w-full px-3">
